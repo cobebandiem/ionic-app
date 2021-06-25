@@ -5,6 +5,7 @@ import { listTeacherReducer } from '../pages/admins/teacher/listteacher.reducer'
 import { listLearnerReducer } from '../pages/admins/learner/listLearner.reducer';
 import { listHostReducer } from '../pages/admins/host/listHost.reducer';
 import { listPlaceReducer } from '../pages/admins/place/listPlace.reducer';
+import { listCourseReducer } from '../pages/admins/course/listCourse.reducer';
 
 export const initialState: AppState = {
   data: {
@@ -36,6 +37,9 @@ export const initialState: AppState = {
   },
   listPlace: {
     places:[],
+  },
+  listCourse: {
+    courses:[],
   }
 };
 
@@ -46,6 +50,7 @@ export const reducers = combineReducers({
   listLearner: listLearnerReducer,
   listHost: listHostReducer,
   listPlace: listPlaceReducer,
+  listCourse: listCourseReducer,
 });
 
 export type AppState = ReturnType<typeof reducers>;

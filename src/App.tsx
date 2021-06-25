@@ -51,6 +51,8 @@ import ListHostPage from './pages/admins/host/ListHostPage';
 import AddHostPage from './pages/admins/host/AddHostPage';
 import ListPlacePage from './pages/admins/place/ListPlacePage';
 import AddPlacePage from './pages/admins/place/AddPlacePage';
+import ListCoursePage from './pages/admins/course/ListCoursePage';
+import AddCoursePage from './pages/admins/course/AddCoursePage';
 
 const App: React.FC = () => {
   return (
@@ -122,6 +124,8 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, isAuthenticated
                 <Route path="/addHost" component={AddHostPage} />
                 <Route path="/listPlace" component={ListPlacePage} />
                 <Route path="/addPlace" component={AddPlacePage} />
+                <Route path="/listCourse" component={ListCoursePage} />
+                <Route path="/addCourse" component={AddCoursePage} />
               </IonRouterOutlet>
             </IonSplitPane>
           </IonReactRouter>
