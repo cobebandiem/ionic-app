@@ -45,6 +45,8 @@ import './theme/variables.css';
 //Thêm
 import ListTeacherPage from './pages/admins/teacher/ListTeacherPage';
 import AddTeacherPage from './pages/admins/teacher/AddTeacherPage';
+import ListLearnerPage from './pages/admins/learner/ListLearnerPage';
+import AddLearnerPage from './pages/admins/learner/AddLearnerPage';
 
 const App: React.FC = () => {
   return (
@@ -110,6 +112,8 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, isAuthenticated
                 <Route path="/" component={Login} exact />
                 <Route path="/listTeacher" component={ListTeacherPage} />
                 <Route path="/addTeacher" component={AddTeacherPage} />
+                <Route path="/listLearner" component={ListLearnerPage} />
+                <Route path="/addLearner" component={AddLearnerPage} />
               </IonRouterOutlet>
             </IonSplitPane>
           </IonReactRouter>

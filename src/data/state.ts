@@ -2,6 +2,7 @@ import { combineReducers } from './combineReducers';
 import { sessionsReducer } from './sessions/sessions.reducer';
 import { userReducer } from './user/user.reducer';
 import { listTeacherReducer } from '../pages/admins/teacher/listteacher.reducer';
+import { listLearnerReducer } from '../pages/admins/learner/listLearner.reducer';
 
 export const initialState: AppState = {
   data: {
@@ -24,6 +25,9 @@ export const initialState: AppState = {
   },
   listteacher: {
     teachers:[],
+  },
+  listLearner: {
+    learners:[],
   }
 };
 
@@ -31,6 +35,7 @@ export const reducers = combineReducers({
   data: sessionsReducer,
   user: userReducer,
   listteacher: listTeacherReducer,
+  listLearner: listLearnerReducer,
 });
 
 export type AppState = ReturnType<typeof reducers>;
