@@ -1,0 +1,37 @@
+#login-page, #signup-page, #support-page {
+  .login-logo {
+    padding: 20px 0;
+    min-height: 200px;
+    text-align: center;
+  }
+
+  .login-logo img {
+    max-width: 150px;
+  }
+
+  .list {
+    margin-bottom: 0;
+  }
+
+}
+
+// Custom Css
+.custom-toolbar {
+  --background: #45cc9fdb;
+}
+.c-white {
+  color: var(--ion-color-light);
+}
+.custom-icon {
+  color: #45cc9fdb;
+}
+.custom-list-header {
+  --background: #45cc9fdb;
+}
+.custom-search {
+  --background: #fff;
+}
+.custom-item {
+  --background: #45cc9fdb;
+    color: #fff;
+}

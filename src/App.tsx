@@ -27,6 +27,7 @@ import './theme/variables.css';
 import MainTabs from './pages/MainTabs';
 import { connect } from './data/connect';
 import { AppContextProvider } from './data/AppContext';
+import { AuthService } from './data/dataApi';
 import { loadConfData } from './data/sessions/sessions.actions';
 import { setIsLoggedIn, setUsername, loadUserData } from './data/user/user.actions';
 import Account from './pages/Account';
@@ -37,6 +38,13 @@ import Tutorial from './pages/Tutorial';
 import HomeOrTutorial from './components/HomeOrTutorial';
 import { Schedule } from "./models/Schedule";
 import RedirectToLogin from './components/RedirectToLogin';
+
+/* Theme variables */
+import './theme/variables.css';
+
+//Thêm
+import ListTeacherPage from './pages/admins/teacher/ListTeacherPage';
+import AddTeacherPage from './pages/admins/teacher/AddTeacherPage';
 
 const App: React.FC = () => {
   return (
@@ -49,6 +57,7 @@ const App: React.FC = () => {
 interface StateProps {
   darkMode: boolean;
   schedule: Schedule;
+  isAuthenticated: boolean,
 }
 
 interface DispatchProps {
@@ -62,7 +71,7 @@ interface IonicAppProps extends StateProps, DispatchProps { }
 
 
 
-const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, setIsLoggedIn, setUsername, loadConfData, loadUserData }) => {
+const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, isAuthenticated, setIsLoggedIn, setUsername, loadConfData, loadUserData }) => {
 
   useEffect(() => {
     loadUserData();
@@ -96,6 +105,11 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, setIsLoggedIn, 
                   />;
                 }} />
                 <Route path="/" component={HomeOrTutorial} exact />
+
+                {/* Thêm */}
+                <Route path="/" component={Login} exact />
+                <Route path="/listTeacher" component={ListTeacherPage} />
+                <Route path="/addTeacher" component={AddTeacherPage} />
               </IonRouterOutlet>
             </IonSplitPane>
           </IonReactRouter>
@@ -109,7 +123,8 @@ export default App;
 const IonicAppConnected = connect<{}, StateProps, DispatchProps>({
   mapStateToProps: (state) => ({
     darkMode: state.user.darkMode,
-    schedule: state.data.schedule
+    schedule: state.data.schedule,
+    isAuthenticated: state.user.isLoggedin,
   }),
   mapDispatchToProps: { loadConfData, loadUserData, setIsLoggedIn, setUsername },
   component: IonicApp

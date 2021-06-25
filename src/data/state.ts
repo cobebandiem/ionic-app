@@ -1,6 +1,7 @@
 import { combineReducers } from './combineReducers';
 import { sessionsReducer } from './sessions/sessions.reducer';
 import { userReducer } from './user/user.reducer';
+import { listTeacherReducer } from '../pages/admins/teacher/listteacher.reducer';
 
 export const initialState: AppState = {
   data: {
@@ -20,12 +21,16 @@ export const initialState: AppState = {
     darkMode: false,
     isLoggedin: false,
     loading: false
+  },
+  listteacher: {
+    teachers:[],
   }
 };
 
 export const reducers = combineReducers({
   data: sessionsReducer,
-  user: userReducer
+  user: userReducer,
+  listteacher: listTeacherReducer,
 });
 
 export type AppState = ReturnType<typeof reducers>;
