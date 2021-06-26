@@ -175,8 +175,6 @@ export const AuthService = {
       await Storage.set({ key: "currentUser", value: "" });
       var accessTokenLogout = Promise.resolve(Storage.get({ key: ACCESS_TOKEN }));
       var tokenLogout = await accessTokenLogout;
-      console.log("Loout.");
-
       if(!tokenLogout){
         console.log("Loout successfully.");
       }
@@ -184,14 +182,6 @@ export const AuthService = {
       return console.log(err);
     }
   },
-
-  //TODO
-  // loginRememberMe: (refreshToken) =>
-  //     superagent.post(`${API_TOKEN}`, `refresh_token=${encode(refreshToken)}&grant_type=refresh_token`)
-  //         .set('Content-Type', 'application/x-www-form-urlencoded')
-  //         .set('Authorization', 'Basic ' + btoa("loghisclientid1:TK7umcdNzl1002"))
-  //         .withCredentials().then(responseBody),
-
 };
 
 export const getConfData = async () => {

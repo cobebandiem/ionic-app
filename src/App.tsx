@@ -53,6 +53,9 @@ import ListPlacePage from './pages/admins/place/ListPlacePage';
 import AddPlacePage from './pages/admins/place/AddPlacePage';
 import ListCoursePage from './pages/admins/course/ListCoursePage';
 import AddCoursePage from './pages/admins/course/AddCoursePage';
+import ListCourseTeacherPage from './pages/agents/course/ListCoursePage';
+import AddCourseTeacherPage from './pages/agents/course/AddCoursePage';
+import ListPaymentTeacherPage from './pages/agents/payment/ListPaymentTeacherPage';
 
 const App: React.FC = () => {
   return (
@@ -94,7 +97,7 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, isAuthenticated
         <IonApp className={`${darkMode ? 'dark-theme' : ''}`}>
           <IonReactRouter>
             <IonSplitPane contentId="main">
-              <Menu />
+              {isAuthenticated ? <Menu /> : ''}
               <IonRouterOutlet id="main">
                 {/*
                 We use IonRoute here to keep the tabs state intact,
@@ -126,6 +129,10 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, isAuthenticated
                 <Route path="/addPlace" component={AddPlacePage} />
                 <Route path="/listCourse" component={ListCoursePage} />
                 <Route path="/addCourse" component={AddCoursePage} />
+                {/* Route Teacher */}
+                <Route path="/teacher/listCourse" component={ListCourseTeacherPage} />
+                <Route path="/teacher/addCourse" component={AddCourseTeacherPage} />
+                <Route path="/teacher/listPayment" component={ListPaymentTeacherPage} />
               </IonRouterOutlet>
             </IonSplitPane>
           </IonReactRouter>

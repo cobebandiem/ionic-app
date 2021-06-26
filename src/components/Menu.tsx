@@ -27,8 +27,8 @@ import { connect } from "../data/connect";
 import { AuthService } from "../data/dataApi";
 import { setDarkMode } from "../data/user/user.actions";
 // import { getCurrentUser } from '../data/dataApi';
-// import { User } from "../pages/admins/user/User";
-// import "../pages/style.scss";
+import { User } from "../pages/admins/user/User";
+import "../pages/style.scss";
 
 const routes = {
   appPages: [
@@ -93,33 +93,62 @@ const Menu: React.FC<MenuProps> = ({
   }
 
   useEffect(() => {
-    AuthService.current().then((user: any) => {
+    AuthService.current().then((user: User) => {
       setCurrentUser(user);
     });
   }, [currentUser]);
 
-  return (
-    <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>{currentUser ? currentUser.username : ""}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent class="outer-content">
-          {/* <IonListHeader>Menu</IonListHeader>
-          {renderlistItems(routes.appPages)} */}
-          <IonListHeader>Quản Lý</IonListHeader>
-          {isAuthenticated
-            ? renderlistItems(routes.loggedInAdminPages)
-            : null}
+
+  if (currentUser.roleId === 1) {
+    return (
+      <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>{currentUser ? currentUser.username : ""}</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent class="outer-content">
+            <IonListHeader>Quản Lý</IonListHeader>
+            {isAuthenticated
+              ? renderlistItems(routes.loggedInAdminPages)
+              : null}
+            <IonList>
+              <IonItem>
+                <IonLabel>Màn hình tối</IonLabel>
+                <IonToggle
+                  checked={darkMode}
+                  onClick={() => setDarkMode(!darkMode)}
+                />
+              </IonItem>
+            </IonList>
+            <IonList>
+              <IonListHeader>Quản Lý Tài Khoản</IonListHeader>
+              {isAuthenticated
+                ? renderlistItems(routes.loggedOutPages)
+                : renderlistItems(routes.loggedOutPages)}
+            </IonList>
+            <IonList>
+              <IonItem>
+                <IonLabel>Phiên bản 1.0.0</IonLabel>
+              </IonItem>
+            </IonList>
+          </IonContent>
+      </IonMenu>
+    );
+  } else {
+    return (
+      <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>{currentUser ? currentUser.username : ""}</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent class="outer-content">
           <IonList>
-            <IonItem>
-              <IonLabel>Màn hình tối</IonLabel>
-              <IonToggle
-                checked={darkMode}
-                onClick={() => setDarkMode(!darkMode)}
-              />
-            </IonItem>
+            <IonListHeader>Quản Lý Khoá Học</IonListHeader>
+            {isAuthenticated
+              ? renderlistItems(routes.teacherPages)
+              : renderlistItems(routes.teacherPages)}
           </IonList>
           <IonList>
             <IonListHeader>Quản Lý Tài Khoản</IonListHeader>
@@ -128,83 +157,14 @@ const Menu: React.FC<MenuProps> = ({
               : renderlistItems(routes.loggedOutPages)}
           </IonList>
           <IonList>
-            <IonItem>
-              <IonLabel>Phiên bản 1.0.0</IonLabel>
-            </IonItem>
-          </IonList>
+              <IonItem>
+                <IonLabel>Phiên bản 1.0.0</IonLabel>
+              </IonItem>
+            </IonList>
         </IonContent>
-    </IonMenu>
-  );
-
-
-  // if (currentUser.roleId === 1) {
-  //   return (
-  //     <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
-  //       <IonHeader>
-  //         <IonToolbar>
-  //           <IonTitle>{currentUser ? currentUser.username : ""}</IonTitle>
-  //         </IonToolbar>
-  //       </IonHeader>
-  //       <IonContent class="outer-content">
-  //           {/* <IonListHeader>Menu</IonListHeader>
-  //           {renderlistItems(routes.appPages)} */}
-  //           <IonListHeader>Quản Lý</IonListHeader>
-  //           {isAuthenticated
-  //             ? renderlistItems(routes.loggedInAdminPages)
-  //             : null}
-  //           <IonList>
-  //             <IonItem>
-  //               <IonLabel>Màn hình tối</IonLabel>
-  //               <IonToggle
-  //                 checked={darkMode}
-  //                 onClick={() => setDarkMode(!darkMode)}
-  //               />
-  //             </IonItem>
-  //           </IonList>
-  //           <IonList>
-  //             <IonListHeader>Quản Lý Tài Khoản</IonListHeader>
-  //             {isAuthenticated
-  //               ? renderlistItems(routes.loggedOutPages)
-  //               : renderlistItems(routes.loggedOutPages)}
-  //           </IonList>
-  //           <IonList>
-  //             <IonItem>
-  //               <IonLabel>Phiên bản 1.0.0</IonLabel>
-  //             </IonItem>
-  //           </IonList>
-  //         </IonContent>
-  //     </IonMenu>
-  //   );
-  // } else {
-  //   return (
-  //     <IonMenu type="overlay" disabled={!menuEnabled} contentId="main">
-  //       <IonHeader>
-  //         <IonToolbar>
-  //           <IonTitle>{currentUser ? currentUser.username : ""}</IonTitle>
-  //         </IonToolbar>
-  //       </IonHeader>
-  //       <IonContent class="outer-content">
-  //         <IonList>
-  //           <IonListHeader>Quản Lý Khoá Học</IonListHeader>
-  //           {isAuthenticated
-  //             ? renderlistItems(routes.teacherPages)
-  //             : renderlistItems(routes.teacherPages)}
-  //         </IonList>
-  //         <IonList>
-  //           <IonListHeader>Quản Lý Tài Khoản</IonListHeader>
-  //           {isAuthenticated
-  //             ? renderlistItems(routes.loggedOutPages)
-  //             : renderlistItems(routes.loggedOutPages)}
-  //         </IonList>
-  //         <IonList>
-  //             <IonItem>
-  //               <IonLabel>Phiên bản 1.0.0</IonLabel>
-  //             </IonItem>
-  //           </IonList>
-  //       </IonContent>
-  //     </IonMenu>
-  //   );
-  // }
+      </IonMenu>
+    );
+  }
 };
 
 export default connect<{}, StateProps, {}>({
