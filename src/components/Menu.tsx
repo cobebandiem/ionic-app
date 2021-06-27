@@ -158,7 +158,7 @@ const Menu: React.FC<MenuProps> = ({
           </IonList>
           <IonList>
               <IonItem>
-                <IonLabel>Phiên bản 1.0.0</IonLabel>
+                <IonLabel>Phiên bản 28.6.2021</IonLabel>
               </IonItem>
             </IonList>
         </IonContent>
