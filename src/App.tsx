@@ -57,6 +57,12 @@ import ListCourseTeacherPage from './pages/agents/course/ListCoursePage';
 import AddCourseTeacherPage from './pages/agents/course/AddCoursePage';
 import ListPaymentTeacherPage from './pages/agents/payment/ListPaymentTeacherPage';
 
+import SubjectDetailPage from './pages/agents/course/SubjectDetailPage';
+import MyInvoicePage from './pages/agents/course/MyInvoicePage';
+import PaymentHistoryPage from './pages/agents/payment/PaymentHistoryPage';
+import WithdrawalSuggestPage from './pages/agents/payment/WithdrawalSuggestPage';
+import ProfileAgentPage from './pages/agents/payment/ProfileAgentPage';
+
 const App: React.FC = () => {
   return (
     <AppContextProvider>
@@ -133,6 +139,12 @@ const IonicApp: React.FC<IonicAppProps> = ({ darkMode, schedule, isAuthenticated
                 <Route path="/teacher/listCourse" component={ListCourseTeacherPage} />
                 <Route path="/teacher/addCourse" component={AddCourseTeacherPage} />
                 <Route path="/teacher/listPayment" component={ListPaymentTeacherPage} />
+
+                <Route path="/teacher/subjectDetail" component={SubjectDetailPage} />
+                <Route path="/teacher/myInvoice" component={MyInvoicePage} />
+                <Route path="/teacher/paymentHistory" component={PaymentHistoryPage} />
+                <Route path="/teacher/withdrawal" component={WithdrawalSuggestPage} />
+                <Route path="/teacher/profile" component={ProfileAgentPage} />
               </IonRouterOutlet>
             </IonSplitPane>
           </IonReactRouter>

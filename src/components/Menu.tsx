@@ -15,7 +15,7 @@ import {
 import {
   business,
   people,
-  logIn,
+  mailUnread,
   logOut,
   person,
   bookmark,
@@ -28,7 +28,7 @@ import { AuthService } from "../data/dataApi";
 import { setDarkMode } from "../data/user/user.actions";
 // import { getCurrentUser } from '../data/dataApi';
 import { User } from "../pages/admins/user/User";
-import "../pages/style.scss";
+import "./Menu.css";
 
 const routes = {
   appPages: [
@@ -45,8 +45,11 @@ const routes = {
     { title: "Đăng Xuất", path: "/", icon: logOut },
   ],
   teacherPages: [
-    { title: "Khoá Học", path: "/teacher/listCourse", icon: ribbon },
-    { title: "Thanh Toán", path: "/teacher/listPayment", icon: bookmark }
+    { title: "Thời Khoá Biểu", path: "/teacher/timeTable", icon: ribbon },
+    { title: "Các Lớp Của Tôi", path: "/teacher/myClass", icon: people },
+    { title: "Tạo Khoá Học", path: "/teacher/listCourse", icon: bookmark },
+    { title: "Đơn Hàng Của Tôi", path: "/teacher/myInvoice", icon: mailUnread },
+    { title: "Lịch Sử Thanh Toán", path: "/teacher/paymentHistory", icon: business }
   ],
 };
 
@@ -84,7 +87,7 @@ const Menu: React.FC<MenuProps> = ({
       .filter((route) => !!route.path)
       .map((p) => (
         <IonMenuToggle key={p.title} auto-hide="false">
-          <IonItem button routerLink={p.path} routerDirection="none" className={location.pathname.startsWith(p.path) ? 'selected' : undefined}>
+          <IonItem detail={false} button routerLink={p.path} routerDirection="none" className={location.pathname.startsWith(p.path) ? 'selected' : undefined}>
             <IonIcon slot="start" icon={p.icon} className="icon-custom" />
             <IonLabel>{p.title}</IonLabel>
           </IonItem>
@@ -158,7 +161,7 @@ const Menu: React.FC<MenuProps> = ({
           </IonList>
           <IonList>
               <IonItem>
-                <IonLabel>Phiên bản 28.6.2021</IonLabel>
+                <IonLabel>Phiên bản 30.6.2021</IonLabel>
               </IonItem>
             </IonList>
         </IonContent>

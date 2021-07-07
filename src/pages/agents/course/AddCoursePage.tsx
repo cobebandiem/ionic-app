@@ -27,7 +27,6 @@ import "../../style.scss";
 import { loadListCourse } from "./listCourse.actions";
 import { Course } from "./Course";
 import moment from "moment";
-import { toast } from "../../../toast";
 import { loadPlaces, loadTeachers } from "./courseConfig";
 import { Storage } from '@capacitor/storage';
 import { AuthService } from "../../../data/dataApi";
@@ -78,42 +77,10 @@ const AddCoursePage: React.FC<CourseProps> = ({
     });
   }, []);
 
-
-  const handleAddCourse = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-
-    if (!place) {
-      setPlaceError(true);
-    }
-
-    var url = "/courses";
-    var bodyObject = {
-      placeId: place ? place.id : null,
-      agentId: currentUser.userMetaId,
-      startDate: moment(startDate).format("YYYY-MM-DD"),
-      endDate: moment(endDate).format("YYYY-MM-DD"),
-      timeSlotStart: moment(timeSlotStart).format("YYYY-MM-DD HH:mm:ss"),
-      timeSlotEnd: moment(timeSlotEnd).format("YYYY-MM-DD HH:mm:ss"),
-      priceAdminTotal: 0,
-      priceAgentTotal : priceAgentTotal,
-      priceHostTotal : 0,
-    };
-
-    asyncRequests.post(url, bodyObject).then((result) => {
-      if (result && result.id) {
-        toast("Thêm Khoá Học Thành Công!");
-        history.push("/teacher/listCourse");
-        loadListCourse();
-      } else {
-        toast("Lỗi Lưu trữ!");
-        setShowToast(true);
-      }
-    });
-  };
+  const [day, setDay] = useState<string>();
 
   return (
-    <IonPage id="edituser-page">
+    <IonPage id="edituser-page" className="addcourse-page">
       <IonHeader>
         <IonToolbar className='custom-toolbar'>
           <IonButtons slot="start">
@@ -123,8 +90,20 @@ const AddCoursePage: React.FC<CourseProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <form noValidate onSubmit={handleAddCourse}>
+        <form noValidate>
           <IonList>
+          <IonItem>
+            <IonLabel>Ngày dạy trong tuần: </IonLabel>
+            <IonSelect value={day} placeholder="Vui lòng chọn ngày dạy" onIonChange={e => setDay(e.detail.value)}>
+              <IonSelectOption value="t2">Thứ 2</IonSelectOption>
+              <IonSelectOption value="t3">Thứ 3</IonSelectOption>
+              <IonSelectOption value="t4">Thứ 4</IonSelectOption>
+              <IonSelectOption value="t5">Thứ 5</IonSelectOption>
+              <IonSelectOption value="t6">Thứ 6</IonSelectOption>
+              <IonSelectOption value="t7">Thứ 7</IonSelectOption>
+              <IonSelectOption value="cn">Chủ Nhật</IonSelectOption>
+            </IonSelect>
+          </IonItem>
             <IonItem>
               <IonLabel position="stacked" color="success">
                 Trung Tâm
@@ -148,7 +127,9 @@ const AddCoursePage: React.FC<CourseProps> = ({
               </IonText>
             )}
             </IonItem>
-            <IonItem>
+            <IonRow>
+              <IonCol size="6">
+              <IonItem>
               <IonLabel position="stacked" color="success">
                 Ngày bắt đầu (*)
               </IonLabel>
@@ -159,7 +140,9 @@ const AddCoursePage: React.FC<CourseProps> = ({
                 onIonChange={(e) => setStartDate(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
-            <IonItem>
+              </IonCol>
+              <IonCol size="6">
+              <IonItem>
               <IonLabel position="stacked" color="success">
                 Ngày kết thúc (*)
               </IonLabel>
@@ -170,8 +153,11 @@ const AddCoursePage: React.FC<CourseProps> = ({
                 onIonChange={(e) => setEndDate(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
-
-            <IonItem>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol size="6">
+              <IonItem>
               <IonLabel position="stacked" color="success">
                 Giờ bắt đầu (*)
               </IonLabel>
@@ -182,7 +168,9 @@ const AddCoursePage: React.FC<CourseProps> = ({
                 onIonChange={(e) => setTimeSlotStart(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
-            <IonItem>
+              </IonCol>
+              <IonCol size="6">
+              <IonItem>
               <IonLabel position="stacked" color="success">
                 Giờ kết thúc (*)
               </IonLabel>
@@ -193,34 +181,24 @@ const AddCoursePage: React.FC<CourseProps> = ({
                 onIonChange={(e) => setTimeSlotEnd(e.detail.value!)}
               ></IonDatetime>
             </IonItem>
-            {/* <IonItem>
-              <IonLabel position="stacked" color="success">
-              Tổng giá cho Y&M
-              </IonLabel>
-              <IonInput value={priceAdminTotal} placeholder="Tổng giá cho Y&M" onIonChange={e => setPriceAdminTotal(e.detail.value!)}></IonInput>
-            </IonItem> */}
+              </IonCol>
+            </IonRow>
             <IonItem>
               <IonLabel position="stacked" color="success">
-              Tổng giá cho huấn luyện viên
+              Giá tiền huấn luyện viên
               </IonLabel>
               <IonInput value={priceAgentTotal} placeholder="Tổng giá cho huấn luyện viên" onIonChange={e => setPriceAgentTotal(e.detail.value!)}></IonInput>
             </IonItem>
-            {/* <IonItem>
-              <IonLabel position="stacked" color="success">
-              Tổng giá cho trung tâm
-              </IonLabel>
-              <IonInput value={priceHostTotal} placeholder="Tổng giá cho trung tâm" onIonChange={e => setPriceHostTotal(e.detail.value!)}></IonInput>
-            </IonItem> */}
           </IonList>
           <IonRow>
             <IonCol>
-              <IonButton color="success" type="submit" expand="block">
-                Thêm
+              <IonButton color="success" type="button" expand="block">
+                Gửi duyệt
               </IonButton>
             </IonCol>
             <IonCol>
               <IonButton routerLink="/teacher/listCourse" color="light" expand="block">
-                Bỏ Qua
+                Trở về
               </IonButton>
             </IonCol>
           </IonRow>

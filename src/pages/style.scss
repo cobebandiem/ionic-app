@@ -89,3 +89,21 @@
   --background: #45cc9fdb;
     color: #fff;
 }
+
+
+.button-container-img img {
+  height: 2rem;
+  border-radius: 10px;
+}
+.addcourse-page ion-item {
+  --inner-padding-end: 16px;
+  --padding-start: 16px;
+}
+.list-withdrawal-page ion-item {
+  --inner-padding-end: 16px;
+  --padding-start: 16px;
+}
+.list-profile-page ion-item{
+  --inner-padding-end: 16px;
+  --padding-start: 16px;
+}
